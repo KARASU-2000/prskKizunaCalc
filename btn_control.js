@@ -25,3 +25,37 @@ function clickBtnCalc(){
         alert(error.message);
     }
 }
+
+// クリアボタン押下の処理
+function clickBtnCancel(){
+    let clearField;
+    
+    try {
+        // 確認メッセージを表示する
+        if(!confirm("入力と計算結果をクリアしますがよろしいですか？")){
+            // クリア処理をキャンセルする
+            return;
+        }
+
+        // 入力を全てクリアする
+        clearField = document.getElementById("number_current_rank");
+        clearField.value = "";
+        clearField = document.getElementById("number_target_rank");
+        clearField.value = "";
+        clearField = document.getElementById("rdb_clear_rank_s");
+        clearField.checked = true;
+        clearField = document.getElementById("rdb_setting_sub");
+        clearField.checked = true;
+
+        // 出力を全てクリアする
+        magnificationTable = getMagnificationTable();
+        for(let i = 0; i < magnificationTable.length; i++){
+            clearField = document.getElementById("result" + (i + 1));
+            clearField.textContent = "";
+        }
+    }
+    catch (error) {
+        // エラー時はアラートを表示する
+        alert(error.message);
+    }
+}
