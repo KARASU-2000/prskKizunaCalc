@@ -1,0 +1,123 @@
+@charset "utf-8";
+
+/* ヘッダー部 */
+.header{
+    font-family: 'Inter';
+    font-style: normal;
+
+    position: relative;
+    margin-left: 2.5%;
+    /* 上のマージンは固定にする */
+    margin-top: 10px;
+
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+
+    color: #000000;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* フッター部 */
+.footer{
+    border-top: solid 1px lightgray;
+    /* 下のマージンは固定にする */
+    margin-bottom: 15px;
+}
+  
+.footer ul{
+    text-align: center;
+}
+  
+.footer ul li{
+    display: inline;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+/* コンテンツ部 */
+.content{
+    font-family: 'Inter';
+    font-style: normal;
+
+    position: relative;
+    width: 85%;
+    margin-left: 5.0%;
+    /* 上のマージンは固定にする */
+    margin-top: 75px;
+
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1rem;
+
+    color: rgb(0, 0, 0);
+}
+
+/* 入力欄 */
+.input_field{
+    position: relative;
+    width: 85%;
+    /* 入力欄の最大幅 */
+    max-width: 500px;
+    margin-bottom: 25px;
+    margin-left: 5.0%;
+
+    line-height: 2.5rem;
+}
+
+/* 入力欄の1セクション */
+.input_field .input_field_section{
+    /* 1セクション毎の間隔 */
+    margin-top: 50px;
+}
+
+/* クリアランク入力箇所 */
+.input_field .input_field_section .input_clear_rank{
+    /* 入力箇所を横に並べる */
+    display: flex;
+    margin-left: 10%;
+}
+
+/* 編成入力箇所 */
+.input_field .input_field_section .input_organization{
+    margin-left: 10%;
+}
+
+/* ボタン  */
+.input_field .input_field_section .input_button{
+    width: 30%;
+    margin-left: 10%;
+}
+.input_field .input_field_section .input_button:hover{
+    /* カーソルが当たっているときは白にする */
+    background-color: rgb(255, 255, 255);
+}
+
+/* FlexBox内の要素 */
+.box_element{
+    /* FlexBox内の要素の幅 */
+    flex-basis: 25%;
+}
+
+/* 出力欄 */
+.output_field{
+    position: relative;
+    width: 85%;
+    /* 出力欄の最大幅 */
+    max-width: 500px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: 5.0%;
+
+    line-height: 2.5rem; 
+}
+
+.output_field table{
+    border: 2.0px solid #000000;
+    border-collapse: collapse;
+}
+
+.output_field th, td{
+    border: 1.0px solid #000000;
+}
