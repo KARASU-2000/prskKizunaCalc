@@ -7,56 +7,119 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <!-- ↓ヘッダー部↓ -->
         <div class="header">
             <h3>プロセカ キズナランク計算</h3>
         </div>
+        <!-- ↑ヘッダー部↑ -->
+        <!-- ↓コンテンツ部↓ -->
         <div class="content">
-            目標ランクまでに必要なライブ回数の計算を行います
+            目標ランクまでに必要なライブ回数の計算を行います。<br>
+            各キズナランクの必要EXPは<a href="https://pjsekai.com/?6d8e00d4c6">プロジェクトセカイ攻略Wiki</a>様の情報を参照させていただきました。
+            <!-- ↓入力フィールド↓ -->
             <div class="input_field">
                 <div class="input_field_section">
                     <div class="input_kizuna_rank">
-                        現在のランク
-                        <input type="number" name="current_rank" min="0" max="55">
+                        現在のキズナランク
+                        <input id="number_current_rank" type="number" name="current_rank" min="1" max="55">
                     </div>
                     <div class="input_kizuna_rank">
-                        目標のランク
-                        <input type="number" name="target_rank" min="0" max="55">
+                        目標のキズナランク
+                        <input id="number_target_rank" type="number" name="target_rank" min="1" max="55">
                     </div>
                 </div>
                 <div class="input_field_section">
                     ライブのクリアランク
                     <div class="input_clear_rank">
                         <div class="box_element">
-                            <input type="radio" name="rdb_clear_rank" value="S">S
+                            <input id="rdb_clear_rank_s" type="radio" name="rdb_clear_rank" value="S">S
                         </div>
                         <div class="box_element">
-                            <input type="radio" name="rdb_clear_rank" value="A">A
+                            <input id="rdb_clear_rank_a" type="radio" name="rdb_clear_rank" value="A">A
                         </div>
                         <div class="box_element">
-                            <input type="radio" name="rdb_clear_rank" value="B">B
+                            <input id="rdb_clear_rank_b" type="radio" name="rdb_clear_rank" value="B">B
                         </div>
                         <div class="box_element">
-                            <input type="radio" name="rdb_clear_rank" value="C">C
+                            <input id="rdb_clear_rank_c" type="radio" name="rdb_clear_rank" value="C">C
                         </div>
                         <div class="box_element">
-                            <input type="radio" name="rdb_clear_rank" value="D">D
+                            <input id="rdb_clear_rank_d" type="radio" name="rdb_clear_rank" value="D">D
                         </div>
                     </div>
                 </div>
                 <div class="input_field_section">
                     編成
                     <div class="input_organization">
-                        <input type="radio" name="rdb_setting" value="setting_sub">サブリーダーに設定
+                        <input id="rdb_setting_sub" type="radio" name="rdb_setting" value="setting_sub">サブリーダーに設定
                     </div>
                     <div class="input_organization">
-                        <input type="radio" name="rdb_setting" value="setting_member">メンバーに設定
+                        <input id="rdb_setting_member" type="radio" name="rdb_setting" value="setting_member">メンバーに設定
                     </div>
                 </div>
                 <div class="input_field_section">
-                    <input type="button" name="btn_calc" value="計算" class="input_button">
-                    <input type="button" name="btn_reset" value="クリア" class="input_button">
+                    <input id="btn_calc" type="button" name="btn_calc" value="計算" class="input_button" onclick="clickBtnCalc()">
+                    <input id="btn_reset" type="button" name="btn_reset" value="クリア" class="input_button">
                 </div>
             </div>
+            <!-- ↑入力フィールド↑ -->
+            <hr>
+            <!-- ↓出力フィールド↓ -->
+            <div class="output_field">
+                <table>
+                    <tr>
+                        <th>ブースト消費量</th>
+                        <th>ライブ回数</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td id="result1"></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td id="result2"></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td id="result3"></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td id="result4"></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td id="result5"></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td id="result6"></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td id="result7"></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td id="result8"></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td id="result9"></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td id="result10"></td>
+                    </tr>
+                </table>
+            </div>
+            <!-- ↑出力フィールド↑ -->
         </div>
+        <!-- ↑コンテンツ部↑ -->
+        <!-- script読み込み -->
+        <script src="btn_control.js"></script>
+        <script src="get_input_field_status.js"></script>
+        <script src="table_exp.js"></script>
+        <script src="calc_exp.js"></script>
     </body>
 </html>
