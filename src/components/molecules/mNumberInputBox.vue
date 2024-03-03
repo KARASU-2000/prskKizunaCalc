@@ -3,7 +3,6 @@ export default{
     props:{
         text: String, //入力欄の隣に表示する文字
         name: String, //コントロールの名前
-        id: String, //HTML上のID
         min: String, //入力の最小値
         max: String, //入力の最大値
     },
@@ -20,7 +19,6 @@ export default{
     {{ text }}
     <input
         type="number"
-        v-bind:id="id"
         v-bind:name="name"
         v-bind:min="min"
         v-bind:max="max"
