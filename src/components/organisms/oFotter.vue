@@ -30,13 +30,13 @@ export default {
 </script>
 
 <template>
+    <component :is="currentView"/>
     <div class="footer">
         <ul>
             <li><a href="#/">トップページ</a></li>
             <li><a href="#/disclaimer">免責事項</a></li>
         </ul>
     </div>
-    <component :is="currentView" />
 </template>
 
 <style>
