@@ -1,5 +1,5 @@
-// 結果の単位
-const RESULT_SCALE = "回"
+// 別のjsファイルのメソッドをインポートする
+import tableExp from '../db/table_exp'
 
 /**
  * ランク1からparamで受け取ったランクに到達するまでの総EXPを返却する
@@ -12,7 +12,7 @@ function getRequiredExp(rank){
 
     try {
         // キズナランクのEXPテーブルを取得する
-        expTable = getExpTable();
+        expTable = tableExp.getExpTable();
         // 経験値のトータルを0クリア
         expTotal = 0;
 
@@ -23,7 +23,7 @@ function getRequiredExp(rank){
         return expTotal
     }
     catch (error) {
-        throw error;
+        console.error(error)
     }
 }
 
@@ -32,27 +32,32 @@ function getRequiredExp(rank){
  * @param {number} requiredExp 
  * @param {number} baseExp 
  */
-function outputTryLiveCount(requiredExp, baseExp){
+function getTryLiveCount(requiredExp, baseExp){
     let magnificationTable;
-    let outputStr;
+    let result = [];
     let tryLiveCount;
 
     try {
         // ブースト毎の倍率テーブルを取得する
-        magnificationTable = getMagnificationTable();
+        magnificationTable = tableExp.getMagnificationTable();
 
         // 各ブースト毎に回数を計算する
         for(let i = 0; i < magnificationTable.length; i++){
             // 必要EXP / ベース経験値(ランクS～ランクD) * 倍率(ブースト)
             // 小数点以下は切り上げる
             tryLiveCount = Math.ceil((requiredExp / (baseExp * magnificationTable[i]["magnification"])));
-
-            // テキストを書き換える形で結果出力する
-            outputStr = document.getElementById("result" + (i + 1));
-            outputStr.textContent = tryLiveCount + RESULT_SCALE;
+            result[i] = tryLiveCount
         }
+
+        return result;
     }
     catch (error) {
-        throw error;
+        console.error(error)
     }
 }
+
+// vueで使用できるようにエクスポート
+export default{
+    getRequiredExp,
+    getTryLiveCount
+};

@@ -279,3 +279,8 @@ function getMagnificationTable(){
 
     return magnificationTable;
 }
+
+export default{
+    getExpTable,
+    getMagnificationTable
+};
