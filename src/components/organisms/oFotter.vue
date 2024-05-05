@@ -1,40 +1,9 @@
-<script>
-import Home from '../pages/pHome'
-import Disclaimer from '../pages/pDisclaimer'
-
-// クライアントサイドのルーティングで画面遷移をする
-// 参考：https://ja.vuejs.org/guide/scaling-up/routing
-const routes = {
-    '/': Home,
-    '/disclaimer': Disclaimer
-}
-
-export default {
-    data() {
-        return {
-            currentPath: window.location.hash
-        }
-    },
-    computed: {
-        currentView() {
-            // 先頭の#を取り除く
-            return routes[this.currentPath.slice(1) || '/']
-        }
-    },
-    mounted() {
-        window.addEventListener('hashchange', () => {
-            this.currentPath = window.location.hash
-        })
-    }
-}
-</script>
-
 <template>
-    <component :is="currentView"/>
     <div class="footer">
         <ul>
-            <li><a href="#/">トップページ</a></li>
-            <li><a href="#/disclaimer">免責事項</a></li>
+            <!-- vue-routerを使用してページ遷移する -->
+            <li><router-link to="/">トップページ</router-link></li>
+            <li><router-link to="/disclaimer">免責事項</router-link></li>
         </ul>
     </div>
 </template>

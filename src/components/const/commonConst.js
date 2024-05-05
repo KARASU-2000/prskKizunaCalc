@@ -1,4 +1,8 @@
 // 共通で使用する定数を定義
+// ルーティング用
+const PAGE_HOME = '/'
+const PAGE_DISCLAIMER = '/disclaimer'
+
 const RANK_S = 'S'
 const RANK_A = 'A'
 const RANK_B = 'B'
@@ -23,6 +27,8 @@ const ORGANIZATION_SUB_RATIO = 10
 const ORGANIZATION_MEMBER_RATIO = 1
 
 export default{
+    PAGE_HOME,
+    PAGE_DISCLAIMER,
     RANK_S,
     RANK_A,
     RANK_B,

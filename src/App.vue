@@ -1,5 +1,7 @@
 <template>
   <Header></Header>
+  <!-- router.jsを経由して呼び出されたコンポーネントの内容が描画される -->
+  <router-view/>
   <Fotter></Fotter>
 </template>
 
