@@ -8,12 +8,17 @@
 <script>
 import Header from '../src/components/organisms/oHeader.vue'
 import Fotter from '../src/components/organisms/oFotter.vue'
+import Const from '../src/components/const/commonConst'
 
 export default {
   name: 'App',
   components: {
     Header,
     Fotter
+  },
+  created() {
+    // ホーム画面を初期表示する
+    this.$router.push(Const.PAGE_HOME);
   }
 }
 </script>
