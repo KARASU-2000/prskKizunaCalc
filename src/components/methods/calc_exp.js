@@ -3,10 +3,11 @@ import tableExp from '../db/table_exp'
 
 /**
  * ランク1からparamで受け取ったランクに到達するまでの総EXPを返却する
- * @param {number} rank 
+ * @param {number} startRank
+ * @param {number} targetRank
  * @returns {number} 総EXP
  */
-function getRequiredExp(rank){
+function getRequiredExp(startRank, targetRank){
     let expTable;
     let expTotal;
 
@@ -16,8 +17,8 @@ function getRequiredExp(rank){
         // 経験値のトータルを0クリア
         expTotal = 0;
 
-        // ランク1からparamで受け取ったランクに到達するまでの総EXPを計算する
-        for(let i = 0; i < rank; i++){
+        // startRankからparamで受け取ったランクに到達するまでの総EXPを計算する
+        for(let i = startRank; i < targetRank; i++){
             expTotal += expTable[i]["exp"];
         }
         return expTotal
