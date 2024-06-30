@@ -3,6 +3,7 @@ import NumberInputBox from '../molecules/mNumberInputBox.vue'
 import RadioButton from '../molecules/mRadioButton.vue'
 import Button from '../molecules/mButton.vue'
 import Table from '../molecules/mTable.vue'
+import CheckBox from '../molecules/mCheckBox.vue'
 
 import Const from '../const/commonConst'
 import CaclExp from '../methods/calc_exp'
@@ -13,6 +14,7 @@ export default{
         RadioButton,
         Button,
         Table,
+        CheckBox,
     },
     data(){
         // 各コンポーネントと紐付ける
@@ -30,6 +32,10 @@ export default{
             // 編成ラジオボタンに表示する1セット
             itemListOrganization: [{value:Const.ORGANIZATION_SUB, calcValue:Const.ORGANIZATION_SUB_RATIO, defaultChecked:"true"},
                                    {value:Const.ORGANIZATION_MEMBER, calcValue:Const.ORGANIZATION_MEMBER_RATIO}],
+            // 経験値入力するかどうか
+            expEnabled: false,
+            remainingExp: 0,
+            itemListExp: [{value:"経験値を入力する"}],
             // 出力欄のテーブル
             outputTable: [{id:"ブースト消費量", value:"ライブ回数"},
                           {id:"1", value:""},
@@ -63,12 +69,26 @@ export default{
                 alert("目標ランクは現在ランクよりも高い数値を入力してください");
                 return;
             }
+            if(this.expEnabled == true && this.remainingExp <= 0){
+                alert("残り経験値は1以上を入力してください");
+                return;
+            }
 
             // 1回のライブあたりの経験値を計算する
             let nLiveExp = this.itemListClearRank.filter((val) => val.value === this.clearRank)[0].calcValue * 
                            this.itemListOrganization.filter((val) => val.value === this.organization)[0].calcValue;
+
+            // 必要経験値を計算する
+            let nRequiredExp = 0;
+            // 残り経験値が入力されていた場合、現在のランクから次のランクまでの経験値は、入力された残り経験値を優先する
+            if(this.expEnabled == true){
+                nRequiredExp = Number(this.remainingExp) + CaclExp.getRequiredExp(nCurrentRank + 1, nTargetRank);
+            }
+            else{
+                nRequiredExp = CaclExp.getRequiredExp(nCurrentRank, nTargetRank);
+            }
             // 結果を配列で受け取る
-            let naResult = CaclExp.getTryLiveCount(CaclExp.getRequiredExp(nTargetRank) - CaclExp.getRequiredExp(nCurrentRank), nLiveExp);
+            let naResult = CaclExp.getTryLiveCount(nRequiredExp, nLiveExp);
 
             // 出力欄の書き換え
             for(let i = 0; i < naResult.length; i++){
@@ -85,6 +105,17 @@ export default{
             }
             // リロードしてリセットする
             window.location.reload();
+        },
+        changeExpCheckBox(values){
+            // チェックボックスが有効・・・valuesに1つ以上のデータが入る
+            // チェックボックスが無効・・・valuesにデータが入らない
+            // バインドしているため、expEnabledのtrue/falseで、残り経験値の活性/非活性が変化する
+            if(values.length <= 0){
+                this.expEnabled = false;
+            }
+            else{
+                this.expEnabled = true;
+            }
         }
     }
 }
@@ -96,26 +127,29 @@ export default{
         各キズナランクの必要EXPは<a href="https://pjsekai.com/?6d8e00d4c6">プロジェクトセカイ攻略Wiki</a>様の情報を参照させていただきました。
         <div class="input_filed">
             <div class="input_field_section">
-                <div class="input_kizuna_rank">
-                    <NumberInputBox text="現在のキズナランク" name="current_rank" min="1" max="55"
+                <div>
+                    <NumberInputBox text="現在のキズナランク" name="current_rank" min="1" max="55" :enabled="true"
                         v-on:updateValue="currentRank = $event"></NumberInputBox>
                 </div>
-                <div class="input_kizuna_rank">
-                    <NumberInputBox text="目標のキズナランク" name="target_rank" min="1" max="55"
+                <div>
+                    <NumberInputBox text="目標のキズナランク" name="target_rank" min="1" max="55" :enabled="true"
                         v-on:updateValue="targetRank = $event"></NumberInputBox>
                 </div>
             </div>
             <div class="input_field_section">
-                <div class="input_clear_rank">
-                    ライブのクリアランク
-                    <RadioButton name="rdb_clear_rank" :itemList="itemListClearRank" isFlex=true v-on:updateValue="clearRank = $event"></RadioButton>
-                </div>
+                <CheckBox name="exp_checkbox" :itemList="itemListExp" v-on:updateValue="changeExpCheckBox"></CheckBox>
+                <NumberInputBox text="残り経験値" name="exp_input" min="1" max="301000" :enabled="expEnabled"
+                    v-on:updateValue="remainingExp = $event"></NumberInputBox>
             </div>
             <div class="input_field_section">
-                <div class="input_organization">
-                    編成
-                    <RadioButton name="rdb_setting" :itemList="itemListOrganization" v-on:updateValue="organization = $event"></RadioButton>
-                </div>
+                ライブのクリアランク
+                <RadioButton name="rdb_clear_rank" :itemList="itemListClearRank" isFlex=true
+                    v-on:updateValue="clearRank = $event"></RadioButton>
+            </div>
+            <div class="input_field_section">
+                編成
+                <RadioButton name="rdb_setting" :itemList="itemListOrganization" v-on:updateValue="organization = $event">
+                </RadioButton>
             </div>
             <div class="input_field_section">
                 <Button name="btn_calc" value="計算" class="input_button" v-on:click="onCaclClick"></Button>
